@@ -29,7 +29,7 @@ jobs:
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x ./gradlew
       - name: Access secrets
         env:
           STAGING_HASURA_URL: ${{secrets.STAGING_HASURA_URL}}
@@ -80,6 +80,12 @@ jobs:
     name: Test
     runs-on: macos-latest
     steps:
+      - name: Init gradle wrapper
+        run: gradle wrapper
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+        
       - run: ./gradlew build assembleAndroidTest
       - name: Run connected tests
         uses: reactivecircus/android-emulator-runner@v2
