@@ -1,9 +1,15 @@
 name: Test & Build Debug
 on:
+  push:
+    branches:
+      - master
+      - development
+      - android-testing
   pull_request:
     branches:
       - master
       - development
+      - android-testing
 
 jobs:
   setup:
