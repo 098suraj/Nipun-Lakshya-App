@@ -8,6 +8,7 @@ import com.data.MockData
 import com.data.db.Convertors
 import com.data.db.NLDatabase
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
@@ -55,8 +56,8 @@ class StudentsAssessmentHistoryDaoTest {
             grade = 10,
             month = 12,
             year = 2023
-        ).first()
-        Assert.assertEquals("Ujjwal", result[0].name)
+        ).firstOrNull()
+        Assert.assertEquals("Ujjwal", result[0]?.name)
     }
 
     @Test(expected = SQLiteConstraintException::class)
