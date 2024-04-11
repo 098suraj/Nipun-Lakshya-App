@@ -33,7 +33,6 @@ android {
 
     buildFeatures {
         dataBinding true
-        viewBinding true
     }
     namespace 'com.samagra.commons'
 
@@ -71,6 +70,7 @@ dependencies {
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:2.48.1"
     kapt "com.google.dagger:hilt-compiler:2.48.1"
+    annotationProcessor "com.google.dagger:hilt-compiler:2.48.1"
 
     api 'javax.inject:javax.inject:1'
 
