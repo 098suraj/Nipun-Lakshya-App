@@ -90,7 +90,8 @@ jobs:
       # Needed to accept licenses
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
       - run: ./gradlew build assembleAndroidTest
       - name: Run connected tests
         uses: reactivecircus/android-emulator-runner@v2
