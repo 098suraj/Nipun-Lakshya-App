@@ -133,7 +133,9 @@ apollo {
         rootPackageName.set("com.hasura.model")
     }
 }
-
+kapt {
+    correctErrorTypes true
+}
 repositories {
     mavenCentral()
 }
