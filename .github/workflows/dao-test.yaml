@@ -14,16 +14,30 @@ on:
 jobs:
   setup:
     name: Setup
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
     strategy:
-      fail-fast: false
       matrix:
-        api-level: [ 21, 24, 27, 29 ]
-        include:
-          - api: 21
-            excludeModules: true
+        api-level: [ 26, 30 ]
 
     steps:
+      - name: Delete unnecessary tools 🔧
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          android: false # Don't remove Android tools
+          tool-cache: true # Remove image tool cache - rm -rf "$AGENT_TOOLSDIRECTORY"
+          dotnet: true # rm -rf /usr/share/dotnet
+          haskell: true # rm -rf /opt/ghc...
+          swap-storage: true # rm -f /mnt/swapfile (4GiB)
+          docker-images: false # Takes 16s, enable if needed in the future
+          large-packages: false # includes google-cloud-sdk and it's slow
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          ls /dev/kvm
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,10 +72,11 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
-          target: google_apis
           arch: x86_64
-          script: ./gradlew data:connectedAndroidTest
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
+          script: ./gradlew data:connectedAndroidTest --daemon
 
       - name: Upload build reports
         if: always()
