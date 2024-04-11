@@ -68,6 +68,9 @@ jobs:
         uses: gradle/gradle-build-action@v3
 
 
+      - name: Build projects before running emulator
+        run: ./gradlew data:assembleDebugAndroidTest
+
       - name: Run connected tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -76,7 +79,7 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew data:connectedAndroidTest 
+          script: ./gradlew data:connectedAndroidTest
 
       - name: Upload build reports
         if: always()
