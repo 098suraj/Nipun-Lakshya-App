@@ -49,6 +49,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
+          target: google_apis
+          arch: x86_64
           script: ./gradlew data:connectedAndroidTest
 
       - name: Upload build reports
