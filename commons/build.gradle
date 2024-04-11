@@ -68,9 +68,9 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:2.2.10"
 
     // Dependency Injection
-    implementation "com.google.dagger:hilt-android:2.48.1"
-    kapt "com.google.dagger:hilt-compiler:2.48.1"
-    annotationProcessor "com.google.dagger:hilt-compiler:2.48.1"
+    implementation "com.google.dagger:hilt-android:2.50"
+    kapt "com.google.dagger:hilt-compiler:2.50"
+    annotationProcessor "com.google.dagger:hilt-compiler:2.50"
 
     api 'javax.inject:javax.inject:1'
 
