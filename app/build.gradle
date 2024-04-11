@@ -96,9 +96,9 @@ android {
         implementation project(":chatbot")
         implementation project(":assessment")
         implementation 'androidx.multidex:multidex:2.0.1'
-        implementation "com.google.dagger:hilt-android:2.50"
-        kapt "com.google.dagger:hilt-compiler:2.50"
-        annotationProcessor "com.google.dagger:hilt-compiler:2.50"
+        implementation "com.google.dagger:hilt-android:2.48.1"
+        kapt "com.google.dagger:hilt-compiler:2.48.1"
+        annotationProcessor "com.google.dagger:hilt-compiler:2.48.1"
 //        implementation 'io.realm.kotlin:library-base:1.7.0'
 
         def appcompat_version = "1.4.2"
@@ -189,9 +189,6 @@ android {
     namespace 'com.samagra.parent'
 }
 
-dependencies {
-    implementation project(path: ':network-module-app')
-}
 
 
 apollo {
