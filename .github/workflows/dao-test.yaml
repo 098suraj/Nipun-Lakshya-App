@@ -112,7 +112,7 @@ jobs:
 
 
       - name: Build projects before running emulator
-        run: ./gradlew data:assembleDebugAndroidTest
+        run: ./gradlew clean data:assembleDebugAndroidTest
 
       - name: Run connected tests
         uses: reactivecircus/android-emulator-runner@v2
