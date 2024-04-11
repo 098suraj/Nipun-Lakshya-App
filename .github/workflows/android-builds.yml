@@ -28,6 +28,9 @@ jobs:
           java-version: '11'
           cache: gradle
 
+      - name: Grant Permission to Execute
+        run: chmod +x gradlew
+
       - uses: actions/cache@v2
         with:
             path: |
