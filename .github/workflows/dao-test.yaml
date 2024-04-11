@@ -14,8 +14,17 @@ on:
 jobs:
   setup:
     name: Setup
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        api-level: [ 21, 24, 27, 29 ]
+        include:
+          - api: 21
+            excludeModules: true
+
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -48,7 +57,8 @@ jobs:
       - name: Run connected tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
+          api-level: ${{ matrix.api-level }}
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           target: google_apis
           arch: x86_64
           script: ./gradlew data:connectedAndroidTest
